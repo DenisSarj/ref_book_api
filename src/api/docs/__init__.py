@@ -1,3 +1,3 @@
-from src.api.v1.docs.views import router
+from src.api.docs.views import router
 
 __all__ = ("router", )
