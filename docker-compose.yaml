@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  ref-book-svc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - .env
+    container_name: ref-book-svc
+    ports:
+      - "8000:8000"
+    networks:
+      - main-network
+
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: pgdb
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    networks:
+      - main-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  main-network:
+    driver: bridge
+
+volumes:
+  pgdata:
