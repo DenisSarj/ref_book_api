@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from geoalchemy2 import Geometry
+from geoalchemy2 import Geography
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.app.repositories.db.models.base import Base
@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class Building(IntIdPkMixin, Base):
     address: Mapped[str] = mapped_column(nullable=False, unique=True)
-    location: Mapped[Geometry] = mapped_column(Geometry("POINT"), nullable=False, unique=False)
+    location: Mapped[Geography] = mapped_column(Geography("POINT"), nullable=False, unique=False)
 
     organizations: Mapped[list["Organization"]] = relationship(back_populates="building", cascade="all, delete-orphan")
 

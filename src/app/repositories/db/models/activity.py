@@ -5,7 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from src.app.repositories.db.models.base import Base
-from src.app.repositories.db.models.mixins.int_id_pk import IntIdPkMixin
 from src.app.repositories.db.models.organization import Organization
 
 
@@ -15,9 +14,10 @@ class ActivityLevel(enum.Enum):
     LEVEL_3 = "Level 3"
 
 
-class Activity(IntIdPkMixin, Base):
+class Activity(Base):
     __tablename__ = "activities"
 
+    id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(nullable=False, unique=True)
     parent_id = mapped_column(ForeignKey("activities.id"), nullable=True)
     level = mapped_column(Enum(ActivityLevel), nullable=False)

@@ -2,7 +2,6 @@ import os
 from logging import (
     INFO,
     WARNING,
-    DEBUG
 )
 
 from pydantic import (
@@ -59,7 +58,7 @@ class Database(BaseApplicationSettings):
             password=self.password,
             host=self.host,
             port=self.port,
-            path=f"/{self.name}",
+            path=f"{self.name}",
         )
 
 
